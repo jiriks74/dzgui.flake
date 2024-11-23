@@ -1,0 +1,18 @@
+diff --git a/dzgui.sh b/dzgui.sh
+index b9409e0..466b74f 100755
+--- a/dzgui.sh
++++ b/dzgui.sh
+@@ -846,11 +846,11 @@ is_steam_running(){
+     fi
+ }
+ test_connection(){
+-    ping -c1 -4 github.com 1>/dev/null 2>&1
++    ping -c1 github.com 1>/dev/null 2>&1
+     if [[ ! $? -eq 0 ]]; then
+         raise_error_and_quit "No connection could be established to the remote server (github.com)."
+     fi
+-    ping -c1 -4 api.steampowered.com 1>/dev/null 2>&1
++    ping -c1 api.steampowered.com 1>/dev/null 2>&1
+     if [[ ! $? -eq 0 ]]; then
+         raise_error_and_quit "No connection could be established to the remote server (steampowered.com)."
+     fi
