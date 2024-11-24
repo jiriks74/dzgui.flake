@@ -75,6 +75,24 @@
 
         cp -r {dzgui.sh,helpers,images} $out/opt
 
+        for i in 16 24 48 64 96 128 256; do
+          mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
+          cp images/icons/''${i}.png $out/share/icons/hicolor/''${i}x''${i}/apps/dzgui.png
+        done
+
+        mkdir -p $out/share/applications
+        cat << EOF >> $out/share/applications/dzgui.desktop
+        [Desktop Entry]
+        Version=1.0
+        Type=Application
+        Terminal=false
+        Exec=$out/bin/dzgui
+        Name=DZGUI
+        Comment=DayZ GUI server browser and frontend for Linux 
+        Icon=dzgui
+        Categories=Game
+        EOF
+
         substituteInPlace $out/opt/dzgui.sh \
           --replace-fail '="/usr/bin/zenity"' =${pkgs.zenity}/bin/zenity \
           --replace-fail '="$HOME/.local/share/$app_name"' =$out/opt \
@@ -115,6 +133,7 @@
 
         runHook postInstall
       '';
+
     };
 
     dzguiShell = pkgs.mkShell {
