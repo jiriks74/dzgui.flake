@@ -1,0 +1,27 @@
+name: update-flake-lock
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0' # runs weekly on Sunday at 00:00
+
+jobs:
+  update_lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          # inputs: dzgui dzgui-testing # We'll see whether I want to limit the updates to dzgui
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          pr-title: "Update flake.lock"
+          pr-assignees: jiriks74
+          pr-reviewers: jiriks74
+          pr-labels: |
+            flake.lock
+            automated
+      - name: Print PR number
+        run: echo Pull request number is ${{ steps.update.outputs.pull-request-number }}.
