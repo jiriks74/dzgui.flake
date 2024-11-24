@@ -1,8 +1,16 @@
 diff --git a/dzgui.sh b/dzgui.sh
-index b9409e0..6c04806 100755
+index b7291d1..b1b1d04 100755
 --- a/dzgui.sh
 +++ b/dzgui.sh
-@@ -84,7 +84,7 @@ logger(){
+@@ -4,6 +4,7 @@ set -o pipefail
+ version=5.6.0-beta.5
+ 
+ #CONSTANTS
++branch="testing"
+ aid=221100
+ game="dayz"
+ app_name="dzgui"
+@@ -84,7 +85,7 @@ logger(){
      printf "%s␞%s␞%s::%s()::%s␞%s\n" "$date" "$tag" "$self" "$caller" "$line" "$string" >> "$debug_log"
  }
  setup_dirs(){
@@ -11,7 +19,7 @@ index b9409e0..6c04806 100755
          if [[ ! -d $dir ]]; then
              mkdir -p "$dir"
          fi
-@@ -328,28 +328,6 @@ check_version(){
+@@ -328,28 +329,6 @@ check_version(){
          prompt_dl
      fi
  }
@@ -40,7 +48,7 @@ index b9409e0..6c04806 100755
  prompt_dl(){
      _text(){
  	cat <<-EOF
-@@ -359,22 +337,10 @@ prompt_dl(){
+@@ -359,22 +338,10 @@ prompt_dl(){
  	Your version: $version
  	Upstream version: $upstream
  	
@@ -65,7 +73,7 @@ index b9409e0..6c04806 100755
  }
  test_display_mode(){
      pgrep -a gamescope | grep -q "generate-drm-mode"
-@@ -408,24 +374,12 @@ check_map_count(){
+@@ -408,24 +375,12 @@ check_map_count(){
          logger DEBUG "System map count is already $count or higher"
          return 0
      fi
@@ -94,7 +102,7 @@ index b9409e0..6c04806 100755
          return 1
      fi
  }
-@@ -630,14 +584,6 @@ fetch_geo_file(){
+@@ -630,14 +585,6 @@ fetch_geo_file(){
          chmod +x "$km_helper"
      fi
  }
@@ -109,15 +117,26 @@ index b9409e0..6c04806 100755
  raise_error_and_quit(){
      local msg="$1"
      logger CRITICAL "$msg"
-@@ -871,7 +817,6 @@ initial_setup(){
+@@ -813,6 +760,7 @@ varcheck(){
+         create_config
+     fi
+     source "$config_file"
++    branch="testing"
+     local workshop_dir="$steam_path/steamapps/workshop/content/$aid"
+     local game_dir="$steam_path/steamapps/common/DayZ"
+     if [[ ! -d $steam_path ]] || [[ ! -d $game_dir ]] || [[ ! $(find $game_dir -type f) ]]; then
+@@ -886,9 +834,9 @@ initial_setup(){
      watcher_deps
      check_architecture
      test_connection
 -    fetch_helpers > >(pdialog "Checking helper files")
      varcheck
      source "$config_file"
++    branch="testing"
      lock
-@@ -887,55 +832,9 @@ initial_setup(){
+     legacy_vars
+     legacy_cols
+@@ -904,55 +852,9 @@ initial_setup(){
      is_dzg_downloading
      print_config_vals
  }
