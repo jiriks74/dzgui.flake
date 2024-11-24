@@ -3,6 +3,23 @@
     "dzgui": {
       "flake": false,
       "locked": {
+        "lastModified": 1731285317,
+        "narHash": "sha256-x5GSyrbEZoru5p70QVRSFx52Njkhvtg/+qc94MqpOmo=",
+        "owner": "aclist",
+        "repo": "dztui",
+        "rev": "bae6a57e1ee5660a07e3a3c326ec68617b831d31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aclist",
+        "ref": "main",
+        "repo": "dztui",
+        "type": "github"
+      }
+    },
+    "dzgui-testing": {
+      "flake": false,
+      "locked": {
         "lastModified": 1732201127,
         "narHash": "sha256-b9FboXk/LwlEMmQAQDvP7dnqrnUS8S3EMcRH5mIaeeY=",
         "owner": "aclist",
@@ -36,6 +53,7 @@
     "root": {
       "inputs": {
         "dzgui": "dzgui",
+        "dzgui-testing": "dzgui-testing",
         "nixpkgs": "nixpkgs"
       }
     }

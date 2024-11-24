@@ -5,6 +5,10 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     dzgui = {
+      url = "github:aclist/dztui?ref=main";
+      flake = false;
+    };
+    dzgui-testing = {
       url = "github:aclist/dztui?ref=testing";
       flake = false;
     };
@@ -14,13 +18,10 @@
     self,
     nixpkgs,
     dzgui,
+    dzgui-testing,
+    ...
   }: let
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
-
-    # Get src and version from the flake
-    # This makes `nix flake update dzgui` work for easier updating
-    dzguiSrc = dzgui + "/"; # Flake input is a directory or archive
-    dzguiVersion = "${dzgui.rev}";
 
     # Regular dependencies of dzgui
     # NOTE: For extra dependencies needed in nix use dzguiGuiDeps
@@ -29,7 +30,7 @@
       gtk3
       inetutils
       jq
-      (python311.withPackages (ps: [ ps.pygobject3 ]))
+      (python311.withPackages (ps: [ps.pygobject3]))
       wmctrl
       xdotool
       zenity
@@ -49,17 +50,17 @@
       pango.out
     ];
 
-    dzguiPkg = pkgs.stdenv.mkDerivation {
-      pname = "dzgui";
-      version = dzguiVersion;
-      src = dzguiSrc;
+    dzguiPkg = pkgs.stdenv.mkDerivation rec {
+      pname = "DZGUI";
+      # Get src and version from the flake
+      # This makes `nix flake update dzgui` work for easier updating
+      src = dzgui + "/"; # Flake input is a directory or archive
+      version = "${dzgui.rev}";
 
       patches = [
-        ./disable_self_management.patch
-        # ./fix_ping.patch
-        ./disable_ping.patch # The script checks for internet connection using ping
-                             # It can be fixed but it's unreliable as it doesn't work
-                             # on other branches. Disabling is just easier.
+        ./patches/main/disable_self_management.patch
+        ./patches/main/disable_branch_switch.patch
+        ./patches/main/fix_ping.patch
       ];
 
       nativeBuildInputs = with pkgs; [
@@ -81,14 +82,14 @@
         done
 
         mkdir -p $out/share/applications
-        cat << EOF >> $out/share/applications/dzgui.desktop
+        cat << EOF >> $out/share/applications/${pname}.desktop
         [Desktop Entry]
         Version=1.0
         Type=Application
         Terminal=false
         Exec=$out/bin/dzgui
-        Name=DZGUI
-        Comment=DayZ GUI server browser and frontend for Linux 
+        Name=$pname
+        Comment=DayZ GUI server browser and frontend for Linux
         Icon=dzgui
         Categories=Game
         EOF
@@ -111,11 +112,11 @@
         # GI_TYPELIB_PATH doesn't get set automatically unless it's a nix-shell or nix develop
         # To get the necessary paths and packages add the dependencies to dzguiDeps,
         # run `nix develop` and `echo $GI_TYPELIB_PATH` to get the paths.
-        # 
+        #
         # Then figure out the packages and paths that are missing.
         # New packages (that get installed as dependencies) go into `dzguiGuiDeps`
         # and the paths go below.
-        # 
+        #
         # WARN: Some packages (like glib and gtk3) will need `.out`, `.lib`
         # depending on what package output is needed.
         # Use https://github.com/nix-community/nix-index-database if you're not sure.
@@ -133,13 +134,22 @@
 
         runHook postInstall
       '';
-
     };
+
+    dzguiPkg-testing = dzguiPkg.overrideAttrs (old: {
+      pname = "DZGUI-testing";
+      src = dzgui-testing + "/";
+      version = "${dzgui-testing.rev}";
+      patches = [
+        ./patches/testing/disable_self_management.patch
+        ./patches/testing/disable_branch_switch.patch
+        ./patches/testing/fix_ping.patch
+      ];
+    });
 
     dzguiShell = pkgs.mkShell {
       packages = dzguiDeps ++ [dzguiPkg];
     };
-
   in {
     formatter.x86_64-linux = pkgs.alejandra;
 
@@ -150,13 +160,18 @@
 
     packages.x86_64-linux = rec {
       dzgui = dzguiPkg;
+      dzgui-testing = dzguiPkg-testing;
       default = dzgui;
     };
 
-    apps.x86_64-linux =  {
+    apps.x86_64-linux = {
       dzgui = {
         type = "app";
         program = "${self.packages.x86_64-linux.dzgui}/bin/dzgui";
+      };
+      dzgui-testing = {
+        type = "app";
+        program = "${self.packages.x86_64-linux.dzgui-testing}/bin/dzgui";
       };
       default = {
         type = "app";
