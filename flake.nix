@@ -21,6 +21,12 @@
     dzgui-testing,
     ...
   }: let
+    # Patch version of the package
+    # When I make an update to the package while the sourced didn't update
+    # the updated package won't be build as it's still the same version.
+    # Appending this variable to the package version solves this.
+    patchVer = "1.0.0";
+
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
     # Regular dependencies of dzgui
@@ -55,7 +61,7 @@
       # Get src and version from the flake
       # This makes `nix flake update dzgui` work for easier updating
       src = dzgui + "/"; # Flake input is a directory or archive
-      version = "${dzgui.rev}";
+      version = "${dzgui.rev}-${patchVer}";
 
       patches = [
         ./patches/main/disable_self_management.patch
@@ -139,7 +145,7 @@
     dzguiPkg-testing = dzguiPkg.overrideAttrs (old: {
       pname = "DZGUI-testing";
       src = dzgui-testing + "/";
-      version = "${dzgui-testing.rev}";
+      version = "${dzgui-testing.rev}-${patchVer}";
       patches = [
         ./patches/testing/disable_self_management.patch
         ./patches/testing/disable_branch_switch.patch
