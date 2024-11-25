@@ -11,7 +11,6 @@
   makeWrapper,
   wrapGAppsHook,
   curl,
-  gtk3,
   gobject-introspection,
   inetutils,
   jq,
