@@ -40,43 +40,6 @@
     patchVer = "1.0.1";
 
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
-
-    # Regular dependencies of dzgui
-    # NOTE: For extra dependencies needed in nix use dzguiGuiDeps
-    dzguiDeps = with pkgs; [
-      curl
-      gtk3
-      inetutils
-      jq
-      (python311.withPackages (ps: [ps.pygobject3]))
-      wmctrl
-      xdotool
-      zenity
-    ];
-
-    # Extra dependencies that need to be installed because we use nix
-    dzguiGuiDeps = with pkgs; [
-      # GUI
-      at-spi2-core.out
-      gdk-pixbuf.out
-      glib.out
-      gobject-introspection
-      gobject-introspection-unwrapped
-      gsettings-desktop-schemas.out
-      gtk3.out
-      harfbuzz.out
-      pango.out
-    ];
-    # dzguiPkg-testing = dzguiPkg.overrideAttrs (old: {
-    #   pname = "DZGUI-testing";
-    #   src = dzgui-testing + "/";
-    #   version = "${dzgui-testing.rev}-${patchVer}";
-    #   patches = [
-    #     ./patches/testing/disable_self_management.patch
-    #     ./patches/testing/disable_branch_switch.patch
-    #     ./patches/testing/fix_ping.patch
-    #   ];
-    # });
   in {
     formatter.x86_64-linux = pkgs.alejandra;
 
