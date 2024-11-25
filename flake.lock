@@ -1,23 +1,57 @@
 {
   "nodes": {
-    "dzgui": {
+    "a2s": {
       "flake": false,
       "locked": {
-        "lastModified": 1731285317,
-        "narHash": "sha256-x5GSyrbEZoru5p70QVRSFx52Njkhvtg/+qc94MqpOmo=",
+        "lastModified": 1679346231,
+        "narHash": "sha256-cbXqDeVfAJyk5PeZWBSmi6G4ynYC3L34LFofKPdlwGo=",
+        "owner": "yepoleb",
+        "repo": "python-a2s",
+        "rev": "c7590ffa9a6d0c6912e17ceeab15b832a1090640",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yepoleb",
+        "repo": "python-a2s",
+        "rev": "c7590ffa9a6d0c6912e17ceeab15b832a1090640",
+        "type": "github"
+      }
+    },
+    "dayzquery": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730587383,
+        "narHash": "sha256-oKzruS+5f3goXmqS4Oy7XIKcv8GZ1SavmHI1+XC9rVA=",
         "owner": "aclist",
-        "repo": "dztui",
-        "rev": "bae6a57e1ee5660a07e3a3c326ec68617b831d31",
+        "repo": "dayzquery",
+        "rev": "3088bbfb147b77bc7b6a9425581b439889ff3f7f",
         "type": "github"
       },
       "original": {
         "owner": "aclist",
-        "ref": "main",
+        "repo": "dayzquery",
+        "rev": "3088bbfb147b77bc7b6a9425581b439889ff3f7f",
+        "type": "github"
+      }
+    },
+    "dzguiSrc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1731284526,
+        "narHash": "sha256-x5GSyrbEZoru5p70QVRSFx52Njkhvtg/+qc94MqpOmo=",
+        "owner": "aclist",
+        "repo": "dztui",
+        "rev": "3bdc0057a2d41e0a633f110a95a41e897f00e2cc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aclist",
+        "ref": "dzgui",
         "repo": "dztui",
         "type": "github"
       }
     },
-    "dzgui-testing": {
+    "dzguiSrc-testing": {
       "flake": false,
       "locked": {
         "lastModified": 1732201127,
@@ -52,8 +86,10 @@
     },
     "root": {
       "inputs": {
-        "dzgui": "dzgui",
-        "dzgui-testing": "dzgui-testing",
+        "a2s": "a2s",
+        "dayzquery": "dayzquery",
+        "dzguiSrc": "dzguiSrc",
+        "dzguiSrc-testing": "dzguiSrc-testing",
         "nixpkgs": "nixpkgs"
       }
     }
