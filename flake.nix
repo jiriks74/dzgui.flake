@@ -37,7 +37,7 @@
     # When I make an update to the package while the sourced didn't update
     # the updated package won't be build as it's still the same version.
     # Appending this variable to the package version solves this.
-    patchVer = "1.0.0";
+    patchVer = "1.0.1";
 
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
