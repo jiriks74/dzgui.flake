@@ -53,13 +53,13 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
-    mkdir -p $out/opt
+    mkdir -p $out/share/dzgui
 
-    cp -r {dzgui.sh,helpers,images,CHANGELOG.md} $out/opt
-    cp images/{dzgui,grid.png,hero.png,icon.png,logo.png} $out/opt
-    mkdir -p $out/opt/helpers/a2s
-    cp ${a2s-src}/a2s/* $out/opt/helpers/a2s
-    cp ${dayzquery-src}/dayzquery.py $out/opt/helpers/a2s
+    cp -r {dzgui.sh,helpers,images,CHANGELOG.md} $out/share/dzgui
+    cp images/{dzgui,grid.png,hero.png,icon.png,logo.png} $out/share/dzgui
+    mkdir -p $out/share/dzgui/helpers/a2s
+    cp ${a2s-src}/a2s/* $out/share/dzgui/helpers/a2s
+    cp ${dayzquery-src}/dayzquery.py $out/share/dzgui/helpers/a2s
 
     for i in 16 24 48 64 96 128 256; do
       mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     Categories=Game
     EOF
 
-    substituteInPlace $out/opt/dzgui.sh \
+    substituteInPlace $out/share/dzgui/dzgui.sh \
       --replace-fail 'ping -c1 -4' 'ping -c1' \
       --replace-fail 'for dir in "$state_path" "$cache_path" "$share_path" "$helpers_path" "$freedesktop_path" "$config_path" "$log_path"; do' \
         'for dir in "$state_path" "$cache_path" "$config_path" "$log_path"; do' \
@@ -90,22 +90,22 @@ stdenv.mkDerivation rec {
       --replace-fail 'source "$config_file"' "source ''\"\$config_file''\"''\nbranch=${dzguiBranch}" \
       --replace-fail '#CONSTANTS' "#CONSTANTS''\nbranch=${dzguiBranch}" \
       --replace-fail '="/usr/bin/zenity"' =${zenity}/bin/zenity \
-      --replace-fail '="$HOME/.local/share/$app_name"' "=$out/opt" \
-      --replace-fail '="$share_path/dzgui.sh"' "=$out/opt/dzgui.sh" \
-      --replace-fail '="$share_path/helpers"' "=$out/opt/helpers"
+      --replace-fail '="$HOME/.local/share/$app_name"' "=$out/share/dzgui" \
+      --replace-fail '="$share_path/dzgui.sh"' "=$out/share/dzgui/dzgui.sh" \
+      --replace-fail '="$share_path/helpers"' "=$out/share/dzgui/helpers"
 
-    substituteInPlace $out/opt/helpers/funcs \
+    substituteInPlace $out/share/dzgui/helpers/funcs \
       --replace-fail '="/usr/bin/zenity"' =${zenity}/bin/zenity \
-      --replace-fail '="$HOME/.local/share/$app_name"' =$out/opt
+      --replace-fail '="$HOME/.local/share/$app_name"' =$out/share/dzgui
 
-    substituteInPlace $out/opt/helpers/lan \
-      --replace-fail '="$HOME/.local/share/dzgui/helpers/query_v2.py"' =$out/opt/helpers/query_v2.py
+    substituteInPlace $out/share/dzgui/helpers/lan \
+      --replace-fail '="$HOME/.local/share/dzgui/helpers/query_v2.py"' =$out/share/dzgui/helpers/query_v2.py
 
-    substituteInPlace $out/opt/helpers/ui.py \
-      --replace-fail "= '%s/.local/share/dzgui/helpers' %(user_path)" "= \"$out/opt/helpers\"" \
-      --replace-fail "= '%s/CHANGELOG.md' %(state_path)" "= \"$out/opt/CHANGELOG.md\""
+    substituteInPlace $out/share/dzgui/helpers/ui.py \
+      --replace-fail "= '%s/.local/share/dzgui/helpers' %(user_path)" "= \"$out/share/dzgui/helpers\"" \
+      --replace-fail "= '%s/CHANGELOG.md' %(state_path)" "= \"$out/share/dzgui/CHANGELOG.md\""
 
-    ln -s $out/opt/dzgui.sh $out/bin/dzgui
+    ln -s $out/share/dzgui/dzgui.sh $out/bin/dzgui
 
     runHook postInstall
   '';
