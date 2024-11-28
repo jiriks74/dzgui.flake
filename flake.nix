@@ -5,11 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     # helpers for dzgui
-    a2s = {
+    a2sSrc = {
       url = "github:yepoleb/python-a2s?rev=c7590ffa9a6d0c6912e17ceeab15b832a1090640";
       flake = false;
     };
-    dayzquery = {
+    dayzquerySrc = {
       url = "github:aclist/dayzquery?rev=3088bbfb147b77bc7b6a9425581b439889ff3f7f";
       flake = false;
     };
@@ -30,8 +30,8 @@
   outputs = {
     self,
     nixpkgs,
-    a2s,
-    dayzquery,
+    a2sSrc,
+    dayzquerySrc,
     dzguiSrc,
     dzguiSrc-testing,
     ...
@@ -51,8 +51,8 @@
       # It's a bit unconventional but some things are not bundled
       # with dzgui and I find managing these things with flake inputs easier
       dzgui = pkgs.callPackage ./package.nix {
-        a2s-src = a2s;
-        dayzquery-src = dayzquery;
+        a2s-src = a2sSrc;
+        dayzquery-src = dayzquerySrc;
         dzguiName = "DZGUI"; # Package name (also used in the desktop file)
         dzgui-src = dzguiSrc;
         patchVer = patchVer;
@@ -70,8 +70,8 @@
         '';
       };
       dzgui-testing = pkgs.callPackage ./package.nix {
-        a2s-src = a2s;
-        dayzquery-src = dayzquery;
+        a2s-src = a2sSrc;
+        dayzquery-src = dayzquerySrc;
         dzguiName = "DZGUI-testing";
         dzgui-src = dzguiSrc-testing;
         patchVer = patchVer;

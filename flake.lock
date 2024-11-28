@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "a2s": {
+    "a2sSrc": {
       "flake": false,
       "locked": {
         "lastModified": 1679346231,
@@ -17,7 +17,7 @@
         "type": "github"
       }
     },
-    "dayzquery": {
+    "dayzquerySrc": {
       "flake": false,
       "locked": {
         "lastModified": 1730587383,
@@ -86,8 +86,8 @@
     },
     "root": {
       "inputs": {
-        "a2s": "a2s",
-        "dayzquery": "dayzquery",
+        "a2sSrc": "a2sSrc",
+        "dayzquerySrc": "dayzquerySrc",
         "dzguiSrc": "dzguiSrc",
         "dzguiSrc-testing": "dzguiSrc-testing",
         "nixpkgs": "nixpkgs"
