@@ -10,11 +10,13 @@
   stdenv,
   makeWrapper,
   wrapGAppsHook,
+  gawk,
   curl,
   gobject-introspection,
   inetutils,
   jq,
   python311,
+  sysctl,
   wmctrl,
   xdotool,
   zenity,
@@ -27,9 +29,11 @@ stdenv.mkDerivation rec {
   version = "${dzgui-src.rev}-${patchVer}";
 
   buildInputs = [
+    gawk
     curl
     inetutils
     jq
+    sysctl
     wmctrl
     xdotool
     zenity
