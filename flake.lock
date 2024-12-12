@@ -22,15 +22,14 @@
       "locked": {
         "lastModified": 1730587383,
         "narHash": "sha256-oKzruS+5f3goXmqS4Oy7XIKcv8GZ1SavmHI1+XC9rVA=",
-        "owner": "aclist",
+        "owner": "yepoleb",
         "repo": "dayzquery",
         "rev": "3088bbfb147b77bc7b6a9425581b439889ff3f7f",
         "type": "github"
       },
       "original": {
-        "owner": "aclist",
+        "owner": "yepoleb",
         "repo": "dayzquery",
-        "rev": "3088bbfb147b77bc7b6a9425581b439889ff3f7f",
         "type": "github"
       }
     },
@@ -39,33 +38,33 @@
       "locked": {
         "lastModified": 1733224229,
         "narHash": "sha256-2wEl/ujDQaMBLETSabbJ/Jw5VDC5QGIDx43FntlfGsA=",
-        "owner": "aclist",
-        "repo": "dztui",
+        "ref": "dzgui",
         "rev": "1533febf9a9bcb8af060140b03a5baec17816be0",
-        "type": "github"
+        "revCount": 1017,
+        "type": "git",
+        "url": "https://codeberg.org/aclist/dztui"
       },
       "original": {
-        "owner": "aclist",
         "ref": "dzgui",
-        "repo": "dztui",
-        "type": "github"
+        "type": "git",
+        "url": "https://codeberg.org/aclist/dztui"
       }
     },
     "dzguiSrc-testing": {
       "flake": false,
       "locked": {
-        "lastModified": 1733547770,
-        "narHash": "sha256-QLEiUBIsYhdyzI8uNhaFJTirh4VcDOJ5e0auB1KRrKI=",
-        "owner": "aclist",
-        "repo": "dztui",
-        "rev": "8dc9ad3313860d0d6d56d374157bfd0f0f4e1113",
-        "type": "github"
+        "lastModified": 1733971096,
+        "narHash": "sha256-sJRvx7ptGURGovpKXs8g9eT/aSWTRl0xDMVraukKVgc=",
+        "ref": "testing",
+        "rev": "1be68e7be3cf2835db15bfbfce8efc145b5d23a6",
+        "revCount": 1044,
+        "type": "git",
+        "url": "https://codeberg.org/aclist/dztui"
       },
       "original": {
-        "owner": "aclist",
         "ref": "testing",
-        "repo": "dztui",
-        "type": "github"
+        "type": "git",
+        "url": "https://codeberg.org/aclist/dztui"
       }
     },
     "nixpkgs": {
