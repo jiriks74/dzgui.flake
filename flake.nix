@@ -65,9 +65,6 @@
         # and needs to be patched differently in between branches
         # This disables the switch branch option as it's not working (it's a nix package now)
         dzguiPostInstall = ''
-          substituteInPlace $out/share/dzgui/dzgui.sh \
-            --replace-fail 'ping -c1 -4' 'ping -c1'
-
           substituteInPlace ''$out/share/dzgui/helpers/ui.py \
             --replace-fail '("Toggle release branch",),' ""
         '';

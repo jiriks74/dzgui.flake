@@ -36,11 +36,11 @@
     "dzguiSrc": {
       "flake": false,
       "locked": {
-        "lastModified": 1733224229,
-        "narHash": "sha256-2wEl/ujDQaMBLETSabbJ/Jw5VDC5QGIDx43FntlfGsA=",
+        "lastModified": 1733972170,
+        "narHash": "sha256-ijq7Z44fs3kw+BNKn0pkpCKrdH6Sq7MgkLbNMsq6O2s=",
         "ref": "dzgui",
-        "rev": "1533febf9a9bcb8af060140b03a5baec17816be0",
-        "revCount": 1017,
+        "rev": "bc9178d2de8747278abb435e12c0335172c887cb",
+        "revCount": 1018,
         "type": "git",
         "url": "https://codeberg.org/aclist/dztui"
       },
@@ -53,11 +53,11 @@
     "dzguiSrc-testing": {
       "flake": false,
       "locked": {
-        "lastModified": 1733971096,
-        "narHash": "sha256-sJRvx7ptGURGovpKXs8g9eT/aSWTRl0xDMVraukKVgc=",
+        "lastModified": 1733971818,
+        "narHash": "sha256-S7eXPu6iAtYry8dGxxM3aL2YgvH16HxNFClK0d++nXU=",
         "ref": "testing",
-        "rev": "1be68e7be3cf2835db15bfbfce8efc145b5d23a6",
-        "revCount": 1044,
+        "rev": "12b1c392dfc912779847e64a9dd032db3a2558ed",
+        "revCount": 1045,
         "type": "git",
         "url": "https://codeberg.org/aclist/dztui"
       },
