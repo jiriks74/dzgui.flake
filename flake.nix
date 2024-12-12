@@ -10,18 +10,18 @@
       flake = false;
     };
     dayzquerySrc = {
-      url = "github:aclist/dayzquery?rev=3088bbfb147b77bc7b6a9425581b439889ff3f7f";
+      url = "github:yepoleb/dayzquery";
       flake = false;
     };
     # ^ helpers for dzgui
 
     # dzgui
     dzguiSrc = {
-      url = "github:aclist/dztui?ref=dzgui";
+      url = "git+https://codeberg.org/aclist/dztui?ref=dzgui";
       flake = false;
     };
     dzguiSrc-testing = {
-      url = "github:aclist/dztui?ref=testing";
+      url = "git+https://codeberg.org/aclist/dztui?ref=testing";
       flake = false;
     };
     # ^ dzgui
@@ -65,6 +65,9 @@
         # and needs to be patched differently in between branches
         # This disables the switch branch option as it's not working (it's a nix package now)
         dzguiPostInstall = ''
+          substituteInPlace $out/share/dzgui/dzgui.sh \
+            --replace-fail 'ping -c1 -4' 'ping -c1'
+
           substituteInPlace ''$out/share/dzgui/helpers/ui.py \
             --replace-fail '("Toggle release branch",),' ""
         '';

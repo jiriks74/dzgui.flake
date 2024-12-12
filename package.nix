@@ -84,7 +84,6 @@ stdenv.mkDerivation rec {
     EOF
 
     substituteInPlace $out/share/dzgui/dzgui.sh \
-      --replace-fail 'ping -c1 -4' 'ping -c1' \
       --replace-fail 'for dir in "$state_path" "$cache_path" "$share_path" "$helpers_path" "$freedesktop_path" "$config_path" "$log_path"; do' \
         'for dir in "$state_path" "$cache_path" "$config_path" "$log_path"; do' \
       --replace-fail '[[ ! -f $share_path/icon.png ]] && freedesktop_dirs' "" \
