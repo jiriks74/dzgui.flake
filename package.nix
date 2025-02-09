@@ -5,7 +5,6 @@
   dzgui-src,
   dzguiBranch,
   patchVer,
-  dzguiPostInstall,
   lib,
   stdenv,
   makeWrapper,
@@ -105,6 +104,7 @@ stdenv.mkDerivation rec {
       --replace-fail '="$HOME/.local/share/dzgui/helpers/query_v2.py"' =$out/share/dzgui/helpers/query_v2.py
 
     substituteInPlace $out/share/dzgui/helpers/ui.py \
+      --replace-fail "RowType.TGL_BRANCH," "" \
       --replace-fail "= '%s/.local/share/dzgui/helpers' %(user_path)" "= \"$out/share/dzgui/helpers\"" \
       --replace-fail "= '%s/CHANGELOG.md' %(state_path)" "= \"$out/share/dzgui/CHANGELOG.md\""
 
@@ -112,8 +112,6 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
-
-  postInstall = dzguiPostInstall;
 
   preFixup = ''
     gappsWrapperArgs+=(
