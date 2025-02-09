@@ -64,10 +64,6 @@
         # As of 25. 11. 2024 the ui.py file has major differences
         # and needs to be patched differently in between branches
         # This disables the switch branch option as it's not working (it's a nix package now)
-        dzguiPostInstall = ''
-          substituteInPlace ''$out/share/dzgui/helpers/ui.py \
-            --replace-fail '("Toggle release branch",),' ""
-        '';
       };
       dzgui-testing = pkgs.callPackage ./package.nix {
         a2s-src = a2sSrc;
@@ -79,10 +75,6 @@
         # As of 25. 11. 2024 the ui.py file has major differences
         # and needs to be patched differently in between branches
         # This disables the switch branch option as it's not working (it's a nix package now)
-        dzguiPostInstall = ''
-          substituteInPlace ''$out/share/dzgui/helpers/ui.py \
-            --replace 'RowType.TGL_BRANCH,' ""
-        '';
       };
 
       default = dzgui;
