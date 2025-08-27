@@ -64,6 +64,11 @@
         # As of 25. 11. 2024 the ui.py file has major differences
         # and needs to be patched differently in between branches
         # This disables the switch branch option as it's not working (it's a nix package now)
+        dzguiPostInstall = ''
+          substituteInPlace $out/share/dzgui/helpers/ui.py \
+            --replace-fail "= '%s/.local/share/dzgui/helpers' %(user_path)" "= '$out/share/dzgui/helpers'" \
+            --replace-fail "= '%s/CHANGELOG.md' %(state_path)" "= \"$out/share/dzgui/CHANGELOG.md\""
+        '';
       };
       dzgui-testing = pkgs.callPackage ./package.nix {
         a2s-src = a2sSrc;
@@ -75,6 +80,11 @@
         # As of 25. 11. 2024 the ui.py file has major differences
         # and needs to be patched differently in between branches
         # This disables the switch branch option as it's not working (it's a nix package now)
+        dzguiPostInstall = ''
+          substituteInPlace $out/share/dzgui/helpers/ui.py \
+            --replace-fail "= f\"{user_path}/.local/share/{app_name_lower}/helpers\"" "= '$out/share/dzgui/helpers'" \
+            --replace-fail "= f\"{state_path}/CHANGELOG.md\"" "= \"$out/share/dzgui/CHANGELOG.md\""
+        '';
       };
 
       default = dzgui;
