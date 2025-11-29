@@ -9,13 +9,13 @@
   lib,
   stdenv,
   makeWrapper,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   gawk,
   curl,
   gobject-introspection,
   inetutils,
   jq,
-  python311,
+  python3,
   sysctl,
   wmctrl,
   xdotool,
@@ -39,12 +39,12 @@ stdenv.mkDerivation rec {
     zenity
 
     # GUI
-    (python311.withPackages (ps: [ps.pygobject3]))
+    (python3.withPackages (ps: [ps.pygobject3]))
   ];
 
   nativeBuildInputs = [
     makeWrapper
-    wrapGAppsHook
+    wrapGAppsHook3
     gobject-introspection
   ];
 
@@ -84,8 +84,6 @@ stdenv.mkDerivation rec {
     EOF
 
     substituteInPlace $out/share/dzgui/dzgui.sh \
-      --replace-fail 'for dir in "$state_path" "$cache_path" "$share_path" "$helpers_path" "$freedesktop_path" "$config_path" "$log_path"; do' \
-        'for dir in "$state_path" "$cache_path" "$config_path" "$log_path"; do' \
       --replace-fail '[[ ! -f $share_path/icon.png ]] && freedesktop_dirs' "" \
       --replace-fail '[[ ! -f "$freedesktop_path/$app_name.desktop" ]] && freedesktop_dirs' "" \
       --replace-fail "    check_version" "" \

@@ -68,6 +68,9 @@
           substituteInPlace $out/share/dzgui/helpers/ui.py \
             --replace-fail "= '%s/.local/share/dzgui/helpers' %(user_path)" "= '$out/share/dzgui/helpers'" \
             --replace-fail "= '%s/CHANGELOG.md' %(state_path)" "= \"$out/share/dzgui/CHANGELOG.md\""
+          substituteInPlace $out/share/dzgui/dzgui.sh \
+            --replace-fail 'for dir in "$state_path" "$cache_path" "$share_path" "$helpers_path" "$freedesktop_path" "$config_path" "$log_path"; do' \
+              'for dir in "$state_path" "$cache_path" "$config_path" "$log_path"; do' \
         '';
       };
       dzgui-testing = pkgs.callPackage ./package.nix {
@@ -84,6 +87,11 @@
           substituteInPlace $out/share/dzgui/helpers/ui.py \
             --replace-fail "= f\"{user_path}/.local/share/{app_name_lower}/helpers\"" "= '$out/share/dzgui/helpers'" \
             --replace-fail "= f\"{state_path}/CHANGELOG.md\"" "= \"$out/share/dzgui/CHANGELOG.md\""
+          substituteInPlace $out/share/dzgui/dzgui.sh \
+            --replace-fail 'directories+=("$share_path")' "" \
+            --replace-fail 'directories+=("$helpers_path")' "" \
+            --replace-fail 'if [[ $(basename "$0") == "dzgui.sh" ]]; then' \
+              'if true; then'
         '';
       };
 
