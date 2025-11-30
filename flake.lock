@@ -53,11 +53,11 @@
     "dzguiSrc-testing": {
       "flake": false,
       "locked": {
-        "lastModified": 1763741099,
-        "narHash": "sha256-+a/AzZiXDn8wRKGW4zlTBrp8S04ylGl0aq4Wd0PSIJM=",
+        "lastModified": 1764446119,
+        "narHash": "sha256-MNCEpVBzIboLteRQjIFrZrd8uLiWXQnLYQUxOb9Ykbo=",
         "ref": "testing",
-        "rev": "4edf71aa0aadf797fe0a5c8d555ca419ad8cda46",
-        "revCount": 1306,
+        "rev": "53e50a5716de8409631d3c9da9141007b9b1068a",
+        "revCount": 1311,
         "type": "git",
         "url": "https://codeberg.org/aclist/dztui"
       },
